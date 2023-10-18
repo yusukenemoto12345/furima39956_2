@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
     def index
-      # 実装
+      @posts = Post
     end
 end
+
