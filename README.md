@@ -1,6 +1,6 @@
 # README
 
-User 
+users 
 |Column     |Type    |Options    |
 | first_name|string  |null: false|
 | last_name |string  |null: false|
@@ -8,7 +8,7 @@ User
 | encrypted_password|string  |null: false|
 
 
-Item
+items
 |Column      |Type    |Options|
 |name        |string  |null: false |
 |price       |decimal |null: false |
@@ -17,7 +17,7 @@ Item
 |condition   |string  |null: false|
 
 
-Order 
+orders 
 |Column     |Type      |Options|
 |user_id    |sting     |  null: false|
 |product_id |sting     | foreign_key: true,null: false |
@@ -31,3 +31,4 @@ ShippingAddress
 |name        |sting |not null|
 |postal_code |sting |not null|
 |address     |text  |not null|
+
