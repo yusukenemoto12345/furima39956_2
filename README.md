@@ -12,30 +12,39 @@ users
 | date_of_birth      |date    |null: false |
 
 items
-|Column        |Type       |Options|
-|name          |string     |null: false |
-|price         |integer    |null: false |
-|user          |references |null: false ,foreign_key: true|
-|description   |text       |null: false |
-|condition_id  |integer    |null: false |
-|category      |string     |null: false |
-|seller        |string     |null: false |
-|shipping_fee  |string     |null: false |
-|prefecture    |string     |null: false |
-|shipping_date |string     |null: false |
+|Column           |Type       |Options|
+|name             |string     |null: false |
+|price            |integer    |null: false |
+|user             |references |null: false ,foreign_key: true|
+|description      |text       |null: false |
+|condition_id     |integer    |null: false |
+|category_id      |string     |null: false |
+|shipping_fee_id  |string     |null: false |
+|prefecture_id    |string     |null: false |
+|shipping_date_id |string     |null: false |
 
 orders 
-|Column     |Type      |Options|
-|user       |integer   |null: false|
-|product_id |string    |foreign_key: true,null: false |
+|Column     |Type       |Options|
+|user       |integer    |foreign_key: true,null: false |
+|product_id |integer    |foreign_key: true,null: false |
 
 
-shipping address
-|Column      |Type     |Options|
-|postal_code |string   |null: false|
-|address     |string   |null: false|
-|user_id     | integer |foreign_key: true, null: false |
-|product_id  | integer |foreign_key: true, null: false |
-|quantity    | integer |null: false|
-|order_date  | datetime|null: false|
+shipping_address
+|Column        |Type     |Options|
+|postal_code   |string   |null: false|
+|expiration    |string   |null: false|
+|security_code |string   |null: false|
+|address       |string   |null: false|
+|prefecture    |string   |null: false|
+|city          |string   |null: false|
+|building_name |string   |           |
+|phone_number  |string   |null: false|
+|user_id       |integer  |null: false|
+|product_id    |integer  |null: false|
+
+
+
+
+
+
 
