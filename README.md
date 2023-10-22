@@ -39,7 +39,7 @@ orders
 
 ## Association
 belongs_to :user
-belongs_to :shipping_address
+belongs_to :product, class_name: "Item"
 
 
 shipping_addresses
@@ -51,11 +51,14 @@ shipping_addresses
 |building_name |string     |           |
 |phone_number  |string     |null: false|
 |user          |references |null: false|
-|order_id   |references |null: false ,foreign_key: true|
+|order         |references |null: false ,foreign_key: true|
 
-## Association
-belongs_to :user
 belongs_to :order
+Share
+Save
+
+
+
 
 
 
