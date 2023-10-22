@@ -33,13 +33,14 @@ has_one :order
 
 
 orders 
-|Column              |Type       |Options|
 |user                |references |null: false ,foreign_key: true|
-|shipping_address_id |integer    |foreign_key: true |
+|item_id             |integer    |foreign_key: true, null: false|
+|shipping_address_id |integer    |foreign_key: true, null: false|
 
 ## Association
 belongs_to :user
-belongs_to :product, class_name: "Item"
+belongs_to :item
+has_one :shipping_address
 
 
 shipping_addresses
@@ -50,11 +51,10 @@ shipping_addresses
 |city          |string     |null: false|
 |building_name |string     |           |
 |phone_number  |string     |null: false|
-|order         |references |null: false ,foreign_key: true|
+|order_id      |integer    |null: false|
 
-belongs_to :user
-belongs_to :item
-has_one :shipping_address
+## Association
+belongs_to :order
 
 
 
