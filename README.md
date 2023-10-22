@@ -10,6 +10,10 @@ users
 | email              |string  |unique: true, null: false|
 | encrypted_password |string  |null: false |
 | date_of_birth      |date    |null: false |
+## Association
+has_many :items
+has_many :orders
+has_many :shipping_addresses
 
 items
 |Column           |Type       |Options|
@@ -18,30 +22,37 @@ items
 |user             |references |null: false ,foreign_key: true|
 |description      |text       |null: false |
 |condition_id     |integer    |null: false |
-|category_id      |string     |null: false |
-|shipping_fee_id  |string     |null: false |
-|prefecture_id    |string     |null: false |
-|shipping_date_id |string     |null: false |
+|category_id      |integer    |null: false |
+|shipping_fee_id  |integer    |null: false |
+|prefecture_id    |integer    |null: false |
+|shipping_date_id |integer    |null: false |
+## Association
+belongs_to :user
+has_many :orders
+
 
 orders 
 |Column     |Type       |Options|
 |user       |integer    |foreign_key: true,null: false |
-|product_id |integer    |foreign_key: true,null: false |
+|product    |references |foreign_key: true,null: false |
+## Association
+belongs_to :user
+belongs_to :item
 
 
 shipping_address
 |Column        |Type     |Options|
 |postal_code   |string   |null: false|
-|expiration    |string   |null: false|
-|security_code |string   |null: false|
-|address       |string   |null: false|
-|prefecture    |string   |null: false|
+|address_id    |integer  |null: false|
+|prefecture_id |integer  |null: false|
 |city          |string   |null: false|
 |building_name |string   |           |
 |phone_number  |string   |null: false|
 |user_id       |integer  |null: false|
-|product_id    |integer  |null: false|
-
+| purchase_id  |integer  |null: false|
+# Association
+belongs_to :user
+belongs_to :item
 
 
 
