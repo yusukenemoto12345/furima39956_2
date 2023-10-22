@@ -13,7 +13,6 @@ users
 ## Association
 has_many :items
 has_many :orders
-has_many :shipping_addresses
 
 items
 |Column           |Type       |Options|
@@ -28,31 +27,30 @@ items
 |shipping_date_id |integer    |null: false |
 ## Association
 belongs_to :user
-has_many :orders
+has_oen :orders
 
 
 orders 
-|Column     |Type       |Options|
-|user       |integer    |foreign_key: true,null: false |
-|product    |references |foreign_key: true,null: false |
+|Column              |Type    |Options|
+|user_id             |integer |foreign_key: true |
+|shipping_address_id |integer |foreign_key: true |
+
 ## Association
 belongs_to :user
 belongs_to :item
+belongs_to :shipping_addresses
 
 
 shipping_address
 |Column        |Type     |Options|
 |postal_code   |string   |null: false|
-|address_id    |integer  |null: false|
+|address       |string   |null: false|
 |prefecture_id |integer  |null: false|
 |city          |string   |null: false|
 |building_name |string   |           |
 |phone_number  |string   |null: false|
 |user_id       |integer  |null: false|
-| purchase_id  |integer  |null: false|
-# Association
-belongs_to :user
-belongs_to :item
+|purchase_id  |integer  |null: false|
 
 
 
