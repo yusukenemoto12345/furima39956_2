@@ -50,12 +50,11 @@ shipping_addresses
 |city          |string     |null: false|
 |building_name |string     |           |
 |phone_number  |string     |null: false|
-|user          |references |null: false|
 |order         |references |null: false ,foreign_key: true|
 
-belongs_to :order
-Share
-Save
+belongs_to :user
+belongs_to :item
+has_one :shipping_address
 
 
 
