@@ -33,9 +33,8 @@ has_one :order
 
 
 orders 
-|user                |references |null: false ,foreign_key: true|
-|item_id             |integer    |foreign_key: true, null: false|
-|shipping_address_id |integer    |foreign_key: true, null: false|
+|user_id      |integer    |null: false ,foreign_key: true|
+|item_id      |integer    |foreign_key: true, null: false|
 
 ## Association
 belongs_to :user
@@ -51,7 +50,7 @@ shipping_addresses
 |city          |string     |null: false|
 |building_name |string     |           |
 |phone_number  |string     |null: false|
-|order_id      |integer    |null: false|
+|order_id      |integer    |null: false, foreign_key: true|
 
 ## Association
 belongs_to :order
