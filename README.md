@@ -27,18 +27,18 @@ items
 |shipping_date_id |integer    |null: false |
 ## Association
 belongs_to :user
-has_oen :orders
+has_oen :order
 
 
 orders 
-|Column              |Type    |Options|
-|user_id             |integer |foreign_key: true |
-|shipping_address_id |integer |foreign_key: true |
+|Column              |Type       |Options|
+|user                |references |null: false ,foreign_key: true|
+|shipping_address_id |integer    |foreign_key: true |
 
 ## Association
 belongs_to :user
 belongs_to :item
-belongs_to :shipping_addresses
+belongs_to :shipping_address
 
 
 shipping_address
@@ -49,7 +49,7 @@ shipping_address
 |city          |string   |null: false|
 |building_name |string   |           |
 |phone_number  |string   |null: false|
-|user_id       |integer  |null: false|
+|user |references |null: false ,foreign_key: true|
 |purchase_id  |integer  |null: false|
 
 
