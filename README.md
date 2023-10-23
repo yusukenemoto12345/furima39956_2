@@ -1,24 +1,63 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+users 
+|Column              |Type    |Options     |
+| first_name         |string  |null: false |
+| last_name          |string  |null: false |
+| first_name_katakana| string |null: false |
+| last_name_katakana | string |null: false |
+| nickname           | string |null: false |
+| email              |string  |unique: true, null: false|
+| encrypted_password |string  |null: false |
+| date_of_birth      |date    |null: false |
 
-Things you may want to cover:
+## Association
+has_many :items
+has_many :orders
 
-* Ruby version
+items
+|Column           |Type       |Options|
+|name             |string     |null: false |
+|price            |integer    |null: false |
+|user             |references |null: false ,foreign_key: true|
+|description      |text       |null: false |
+|condition_id     |integer    |null: false |
+|category_id      |integer    |null: false |
+|shipping_fee_id  |integer    |null: false |
+|prefecture_id    |integer    |null: false |
+|shipping_date_id |integer    |null: false |
 
-* System dependencies
+## Association
+belongs_to :user
+has_one :order
 
-* Configuration
 
-* Database creation
+orders 
+|user     |string   |null: false ,foreign_key: true|
+|item     |string   |foreign_key: true, null: false|
 
-* Database initialization
+## Association
+belongs_to :user
+belongs_to :item
+has_one :shipping_address
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+shipping_addresses
+|Column        |Type       |Options|
+|postal_code   |string     |null: false|
+|address       |string     |null: false|
+|prefecture_id |integer    |null: false|
+|city          |string     |null: false|
+|building_name |string     |           |
+|phone_number  |string     |null: false|
+|order         |string     |null: false, foreign_key: true|
 
-* Deployment instructions
+## Association
+belongs_to :order
 
-* ...
+
+
+
+
+
+
