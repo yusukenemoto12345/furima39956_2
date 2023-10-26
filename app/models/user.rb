@@ -9,10 +9,10 @@ class User < ApplicationRecord
   # Validations
   validates :nickname, presence: true
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :first_name_katakana, presence: true, format: { with: /\A[\p{Hiragana}\p{Katakana}\p{Han}]+\z/, message: "は全角（漢字、ひらがな、カタカナ）で入力してください" }
-  validates :last_name_katakana, presence: true, format: { with: /\A[\p{Hiragana}\p{Katakana}\p{Han}]+\z/, message: "は全角（漢字、ひらがな、カタカナ）で入力してください" }
+  validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'は全角（漢字・ひらがな・カタカナ）で入力してください' }
+  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'は全角（漢字・ひらがな・カタカナ）で入力してください' }
+  validates :first_name_katakana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/, message: "は全角（カタカナ）で入力してください" }
+  validates :last_name_katakana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/, message: "は全角（カタカナ）で入力してください" }
   validates :date_of_birth, presence: true
 
   # Associations
