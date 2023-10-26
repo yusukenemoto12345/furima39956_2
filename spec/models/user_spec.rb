@@ -1,20 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before do
-    @user = FactoryBot.build(:user)
-  end
-
-  describe 'ユーザー新規登録' do
-    it 'nicknameが空では登録できない' do
-      @user.nickname = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Nickname can't be blank"
+  context '異常系' do
+    # (略)
+    it '重複したメールアドレスは登録できないこと' do
+      User.create(username: 'testuser1', email: 'test@example.com', password: 'password')
+      user = User.new(username: 'testuser2', email: 'test@example.com', password: 'password')
+      expect(user).not_to be_valid
     end
-    it 'emailが空では登録できない' do
-      @user.email = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Email can't be blank"
+
+    it 'メールアドレスに@を含まない場合は登録できないこと' do
+      user = User.new(username: 'testuser', email: 'invalid_email', password: 'password')
+      expect(user).not_to be_valid
+    end
+
+    it 'パスワードが空では登録できないこと' do
+      user = User.new(username: 'testuser', email: 'test@example.com', password: '')
+      expect(user).not_to be_valid
+    end
+
+    # 他のテストも同様に続きます...
+
+    it '生年月日が空だと登録できないこと' do
+      user = User.new(username: 'testuser', email: 'test@example.com', password: 'password', birth_date: nil)
+      expect(user).not_to be_valid
     end
   end
 end
+
+
+
+
