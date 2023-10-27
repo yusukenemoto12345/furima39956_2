@@ -2,28 +2,18 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '正常系' do
-  context'新規登録' do
-    it '全ての項目が入力されていれば新規登録できること' do
-     user = User.new(
-        email: 'test@example.com',
-       nickname: 'testuser',
-        password: 'Test1234',
-        password_confirmation: 'Test1234',
-        last_name: '山田',
-        first_name: '太郎',
-        first_name_katakana: 'タロウ',
-        last_name_katakana: 'ヤマダ',
-        date_of_birth: Date.new(1990, 1, 1)
-      )
-      expect(user).to be_valid
+    context '新規登録' do
+      it '全ての項目が入力されていれば新規登録できること' do
+        user = FactoryBot.create(:user)
+        expect(user).to be_valid
+      end
     end
   end
-end
-
+  
   describe '異常系' do
     context 'メールアドレス登録' do
       it 'メールアドレスが空では登録できないこと' do
-        user = User.new(email: '')
+        user = FactoryBot.build(:user, email: '')
         user.valid?
         expect(user.errors[:email]).to include("can't be blank")
       end
