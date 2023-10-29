@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   before do
     @user_attributes = { email: 'existing@example.com' }
+    @user = FactoryBot.build(:user)
   end
 
   describe '正常系' do
     context '新規登録' do
       it '全ての項目が入力されていれば新規登録できること' do
-        user = FactoryBot.create(:user)
-        expect(user).to be_valid
+        expect(@user).to be_valid
       end
     end
   end
@@ -17,22 +17,22 @@ RSpec.describe User, type: :model do
   describe '異常系' do
     context 'メールアドレス登録' do
       it 'メールアドレスが空では登録できないこと' do
-        user = FactoryBot.build(:user, email: '')
-        user.valid?
-        expect(user.errors[:email]).to include("can't be blank")
+        @user.email = ''
+        @user.valid?
+        expect(@user.errors[:email]).to include("can't be blank")
       end
 
       it 'メールアドレスに@を含まない場合は登録できないこと' do
-        user = FactoryBot.build(:user, email: 'invalid_email.com')
-        user.valid?
-        expect(user.errors[:email]).to include('is invalid')
+        @user.email = 'invalid_email.com'
+        @user.valid?
+        expect(@user.errors[:email]).to include('is invalid')
       end
 
       it '重複したメールアドレスは登録できないこと' do
-        existing_user = FactoryBot.create(:user, @user_attributes)
-        user = FactoryBot.build(:user, @user_attributes)
-        user.valid?
-        expect(user.errors[:email]).to include('has already been taken')
+        FactoryBot.create(:user, @user_attributes)
+        @user = FactoryBot.build(:user, @user_attributes)
+        @user.valid?
+        expect(@user.errors[:email]).to include('has already been taken')
       end
     end
 
@@ -126,15 +126,13 @@ RSpec.describe User, type: :model do
       end
     end
 
-  
-context '生年月日の登録' do
-  it '生年月日が空だと登録できないこと' do
-    user = User.new(date_of_birth: nil)
-    user.valid?
-    expect(user.errors[:date_of_birth]).to include("can't be blank")
+    context '生年月日の登録' do
+      it '生年月日が空だと登録できないこと' do
+        @user.date_of_birth = nil
+        @user.valid?
+        expect(@user.errors[:date_of_birth]).to include("can't be blank")
+      end
+    end
   end
 end
-end
-end
-
 
