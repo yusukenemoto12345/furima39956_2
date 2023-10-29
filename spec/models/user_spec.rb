@@ -1,7 +1,20 @@
 require 'rails_helper'
 
-
 RSpec.describe User, type: :model do
+  before do
+    @user_attributes = {
+      nickname: 'testuser',
+      first_name: '太郎',
+      last_name: '山田',
+      first_name_katakana: 'タロウ',
+      last_name_katakana: 'ヤマダ',
+      email: 'existing@example.com',
+      password: 'password1',
+      password_confirmation: 'password1',
+      date_of_birth: Date.new(1990, 1, 1)
+    }
+  end
+
   describe '正常系' do
     context '新規登録' do
       it '全ての項目が入力されていれば新規登録できること' do
@@ -10,7 +23,7 @@ RSpec.describe User, type: :model do
       end
     end
   end
-  
+
   describe '異常系' do
     context 'メールアドレス登録' do
       it 'メールアドレスが空では登録できないこと' do
@@ -25,11 +38,11 @@ RSpec.describe User, type: :model do
         expect(user.errors[:email]).to include('is invalid')
       end
 
-        it '重複したメールアドレスは登録できないこと' do
-          existing_user = FactoryBot.create(:user, email: 'existing@example.com')
-          user = FactoryBot.build(:user, email: 'existing@example.com')
-          user.valid?
-          expect(user.errors[:email]).to include('has already been taken')
+      it '重複したメールアドレスは登録できないこと' do
+        existing_user = FactoryBot.create(:user, @user_attributes)
+        user = FactoryBot.build(:user, @user_attributes)
+        user.valid?
+        expect(user.errors[:email]).to include('has already been taken')
       end
     end
 
@@ -123,16 +136,15 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '生年月日の登録' do
-      it '生年月日が空だと登録できないこと' do
-        user = User.new(date_of_birth: nil)
-        user.valid?
-        expect(user.errors[:date_of_birth]).to include("can't be blank")
-      end
-    end
+  
+context '生年月日の登録' do
+  it '生年月日が空だと登録できないこと' do
+    user = User.new(date_of_birth: nil)
+    user.valid?
+    expect(user.errors[:date_of_birth]).to include("can't be blank")
   end
 end
-
-
+end
+end
 
 
