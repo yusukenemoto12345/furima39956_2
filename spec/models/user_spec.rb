@@ -2,17 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
-    @user_attributes = {
-      nickname: 'testuser',
-      first_name: '太郎',
-      last_name: '山田',
-      first_name_katakana: 'タロウ',
-      last_name_katakana: 'ヤマダ',
-      email: 'existing@example.com',
-      password: 'password1',
-      password_confirmation: 'password1',
-      date_of_birth: Date.new(1990, 1, 1)
-    }
+    @user_attributes = { email: 'existing@example.com' }
   end
 
   describe '正常系' do
