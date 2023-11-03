@@ -3,7 +3,6 @@ FactoryBot.define do
     name { "Example Item" }
     description { "This is an example item description." }
     price { 500 }
-    user_id { 1 }
     condition_id { 2 }
     category_id { 2 }
     shipping_fee_id { 2 }

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @item = FactoryBot.build(:item)
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.build(:item, user: @user)
   end
 
   describe '正常系' do
@@ -79,15 +80,10 @@ RSpec.describe Item, type: :model do
     end
 
     it 'ユーザー情報がない場合は登録できない' do
-      @item.user_id = nil
+      @item.user = nil
       @item.valid?
-      expect(@item.errors[:user_id]).to include("can't be blank")
+      expect(@item.errors[:user]).to include("must exist")
     end
   end
 end
-
-
-
-
-
 
