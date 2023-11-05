@@ -1,5 +1,11 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
+  skip_before_action :authenticate_user!, only: [:index]
+
+
+  def index
+    @items = Item.order(created_at: :desc) # 新しい順に並べ替える
+  end
 
   def new
     @item = Item.new
@@ -16,6 +22,20 @@ def create
     render :new , status: :unprocessable_entity
   end
 end
+
+def show
+  @item = Item.find(params[:id])
+end
+
+def shipping_fee
+  # shipping_fee メソッドの定義
+  # 返す値を適切に設定する
+end
+
+def sold_out?
+  !sold_out？ # これは sold_out フラグが nil でないかどうかを確認するものです
+end
+
 
 private
 
