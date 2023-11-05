@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  has_one_attached :item_image
 
   validates :name, presence: true
   validates :description, presence: true
@@ -11,4 +12,6 @@ class Item < ApplicationRecord
   validates :shipping_date_id, numericality: { other_than: 1 }
   validates :item_image, presence: true
 
+  
 end
+
