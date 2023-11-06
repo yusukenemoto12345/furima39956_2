@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-  skip_before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, except: [:show, :index]
+  before_action :move_to_index, only: [:edit, :update]
+  before_action :set_item, only: [:edit, :show, :update ]
+
 
 
   def index
@@ -25,15 +27,35 @@ def create
 end
 
 def show
-  @item = Item.find(params[:id])
+  
+end
 
+def update
+  
+  if @item.update(item_params)
+    redirect_to item_path(@item)
+  else
+    render :edit,status: :unprocessable_entity
+  end
 end
 
 
+def edit
+  
+end
+  #if current_user == @item.user && !Order.exists?(item_id: @item.id)
+  #render :edit
+  #else
+  #redirect_to root_path
+  #end
+  #end
 
 
 private
 
+def set_item
+  @item = Item.find(params[:id])
+end
 
 #def shipping_fee
   # shipping_fee メソッドの定義
@@ -43,7 +65,12 @@ private
 #def sold_out?
   #!sold_out？ # これは sold_out フラグが nil でないかどうかを確認するものです
 #end
-
+def move_to_index
+  item = Item.find(params[:id])
+  if current_user.id != item.user.id
+    redirect_to root_path
+  end
+end
 
 def item_params
   params.require(:item).permit(:name, :item_image, :description, :price, :condition_id, :category_id, :shipping_fee_id, :prefecture_id, :shipping_date_id)
