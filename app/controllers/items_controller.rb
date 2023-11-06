@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   before_action :move_to_index, only: [:edit, :update]
+  before_action :set_item, only: [:edit, :show, :update ]
 
 
 
@@ -26,12 +27,11 @@ def create
 end
 
 def show
-  @item = Item.find(params[:id])
-
+  
 end
 
 def update
-  @item = Item.find(params[:id]) 
+  
   if @item.update(item_params)
     redirect_to item_path(@item)
   else
@@ -41,7 +41,7 @@ end
 
 
 def edit
-  @item = Item.find(params[:id])
+  
 end
   #if current_user == @item.user && !Order.exists?(item_id: @item.id)
   #render :edit
@@ -53,6 +53,9 @@ end
 
 private
 
+def set_item
+  @item = Item.find(params[:id])
+end
 
 #def shipping_fee
   # shipping_fee メソッドの定義
