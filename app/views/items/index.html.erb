@@ -135,7 +135,7 @@
       <div class='item-img-content'>
         <% if item.item_image.attached? %>
           <%= image_tag url_for(item.item_image), class: 'item-img' %>
-          <% if item.sold_out? %>
+          <%# if item.sold_out? %>
             <div class='sold-out'>
               <span>Sold Out!!</span>
             </div>

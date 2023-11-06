@@ -25,20 +25,11 @@ def create
 end
 
 def show
-  @item = Item.find_by(id: params[:id])
+  @item = Item.find(params[:id])
 
-  if @item.nil?
-    flash[:alert] = "指定された商品が見つかりませんでした。"
-    redirect_to root_path and return
-  end
-
-  if user_signed_in?
-    if @item.user == current_user && !@item.sold_out?
-      @can_edit_and_delete = true
-    end
-    @can_purchase = !@item.sold_out? && @item.user != current_user # 本人が開いている場合に購入ボタンを非表示にする
-  end
 end
+
+
 
 
 private
